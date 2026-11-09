@@ -116,7 +116,7 @@ export function WhatsAppFab() {
       target="_blank"
       rel="noreferrer"
       aria-label="Chat on WhatsApp"
-      className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-brand text-primary-foreground shadow-lg transition-transform hover:scale-105"
+      className="fixed bottom-7 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-brand text-primary-foreground shadow-lg transition-transform hover:scale-105"
     >
       <span aria-hidden="true" className="whatsapp-pulse-ring absolute inset-0 rounded-full border-2 border-brand" />
       <span className="whatsapp-icon-motion">

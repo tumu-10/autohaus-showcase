@@ -9,8 +9,7 @@ export const SITE = {
   email: "mohammedshamsi17@gmail.com",
   instagram: "https://www.instagram.com/shamran_motors/",
   tiktok: "https://www.tiktok.com/@shamranmotors",
-  // TODO: replace with the business WhatsApp number (international format, digits only, e.g. 2567XXXXXXXX)
-  whatsappNumber: "",
+  whatsappNumber: "256706126660",
 };
 
 export function whatsappLink(message: string) {
