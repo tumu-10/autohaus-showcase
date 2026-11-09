@@ -5,9 +5,9 @@ import { IMAGES } from "@/lib/site";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — Shamran Motors" },
+      { title: "About | Shamran Motors" },
       { name: "description", content: "Shamran Motors is a Kampala automotive business offering vehicle sales, car hire and showcases." },
-      { property: "og:title", content: "About — Shamran Motors" },
+      { property: "og:title", content: "About | Shamran Motors" },
       { property: "og:description", content: "Who we are and how we work." },
     ],
   }),

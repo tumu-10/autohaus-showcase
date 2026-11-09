@@ -8,9 +8,9 @@ import { IMAGES, SITE, VEHICLES, whatsappLink, type Vehicle } from "@/lib/site";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Shamran Motors — Drive Your Next Chapter" },
+      { title: "Shamran Motors | Drive Your Next Chapter" },
       { name: "description", content: "Discover exceptional vehicles and flexible car hire with Shamran Motors, Bugolobi, Kampala." },
-      { property: "og:title", content: "Shamran Motors — Drive Your Next Chapter" },
+      { property: "og:title", content: "Shamran Motors | Drive Your Next Chapter" },
       { property: "og:description", content: "Vehicle sales, car hire and automotive showcases in Kampala." },
     ],
   }),
@@ -33,7 +33,7 @@ function Home() {
         <motion.div style={{ x: textX }} className="pointer-events-none absolute inset-x-0 top-[14vh] select-none whitespace-nowrap px-5 md:px-10">
           {["Drive your", "next chapter."].map((l, i) => (
             <div key={l} className="overflow-hidden">
-              <motion.h1 initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 1.1, delay: 1.3 + i * 0.12, ease }} className="display text-[19vw] text-brand md:text-[15vw]">
+              <motion.h1 initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 1.1, delay: 1.3 + i * 0.12, ease }} className="display text-[14vw] text-brand md:text-[15vw]">
                 {l}
               </motion.h1>
             </div>

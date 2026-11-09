@@ -34,7 +34,9 @@ export function Header() {
     >
       <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-5 md:px-10">
         <Link to="/" aria-label="Shamran Motors home" onClick={() => setOpen(false)}>
-          <Wordmark />
+          <span className="flex h-[52px] w-[120px] items-center justify-center">
+            <img src="/logo-transparent.png" alt="" className="h-full w-full object-contain" />
+          </span>
         </Link>
         <nav className="hidden items-center gap-8 md:flex">
           {NAV.map((n) => (
@@ -114,9 +116,12 @@ export function WhatsAppFab() {
       target="_blank"
       rel="noreferrer"
       aria-label="Chat on WhatsApp"
-      className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center bg-brand text-primary-foreground shadow-lg transition-transform hover:scale-105"
+      className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-brand text-primary-foreground shadow-lg transition-transform hover:scale-105"
     >
-      <MessageCircle />
+      <span aria-hidden="true" className="whatsapp-pulse-ring absolute inset-0 rounded-full border-2 border-brand" />
+      <span className="whatsapp-icon-motion">
+        <MessageCircle />
+      </span>
     </a>
   );
 }
@@ -135,11 +140,15 @@ export function Preloader() {
           exit={{ y: "-100%" }}
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
         >
-          <div className="w-64">
+          <div className="w-64 max-w-[calc(100vw-2.5rem)]">
             <div className="overflow-hidden">
-              <motion.p initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }} className="display text-6xl">
-                Shamran<span className="text-brand">.</span>
-              </motion.p>
+              <motion.div initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
+                <img
+                  src="/logo-transparent.png"
+                  alt="Shamran Motors"
+                  className="h-auto w-full object-contain"
+                />
+              </motion.div>
             </div>
             <motion.div className="mt-4 h-0.5 origin-left bg-brand" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.1, ease: "easeInOut" }} />
           </div>

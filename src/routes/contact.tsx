@@ -7,9 +7,9 @@ import { validateContact, type ContactForm } from "@/lib/contact";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Shamran Motors" },
+      { title: "Contact | Shamran Motors" },
       { name: "description", content: "Contact Shamran Motors in Bugolobi, Kampala by WhatsApp, email, Instagram or TikTok." },
-      { property: "og:title", content: "Contact — Shamran Motors" },
+      { property: "og:title", content: "Contact | Shamran Motors" },
       { property: "og:description", content: "Get in touch with Shamran Motors." },
     ],
   }),
@@ -33,10 +33,10 @@ function Contact() {
   return (
     <>
       <PageHero eyebrow="Contact" title="Say hello." />
-      <section className="mx-auto grid max-w-[1440px] gap-16 px-5 pb-24 md:grid-cols-2 md:px-10">
+      <section className="mx-auto grid grid-cols-1 max-w-[1440px] gap-16 px-5 pb-24 md:grid-cols-2 md:px-10">
         <div className="space-y-8">
           <div><p className="eyebrow text-muted-foreground">Visit</p><p className="display mt-2 text-4xl">{SITE.location}</p></div>
-          <div><p className="eyebrow text-muted-foreground">Email</p><a href={`mailto:${SITE.email}`} className="link-line mt-2 inline-block text-xl">{SITE.email}</a></div>
+          <div className="min-w-0"><p className="eyebrow text-muted-foreground">Email</p><a href={`mailto:${SITE.email}`} className="link-line mt-2 inline-block max-w-full break-all text-xl">{SITE.email}</a></div>
           <div className="flex flex-wrap gap-3">
             <a href={whatsappLink("Hello Shamran Motors, I have an enquiry.")} target="_blank" rel="noreferrer" className="eyebrow bg-brand px-6 py-4 text-primary-foreground">WhatsApp</a>
             <a href={SITE.instagram} target="_blank" rel="noreferrer" className="eyebrow border px-6 py-4 hover:border-foreground">Instagram</a>

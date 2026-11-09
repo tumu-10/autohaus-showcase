@@ -14,9 +14,9 @@ export const Route = createFileRoute("/cars")({
   }),
   head: () => ({
     meta: [
-      { title: "Our Cars — Shamran Motors" },
+      { title: "Our Cars | Shamran Motors" },
       { name: "description", content: "Browse vehicles at Shamran Motors, Kampala: photos, specifications and prices in UGX." },
-      { property: "og:title", content: "Our Cars — Shamran Motors" },
+      { property: "og:title", content: "Our Cars | Shamran Motors" },
       { property: "og:description", content: "Browse the Shamran Motors vehicle showroom." },
     ],
   }),
