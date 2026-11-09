@@ -9,8 +9,8 @@ import { VEHICLES, type Vehicle } from "@/lib/site";
 const BODIES = ["All", "SUV", "Sedan", "Coupe", "Pickup"] as const;
 
 export const Route = createFileRoute("/cars")({
-  validateSearch: (s: Record<string, unknown>): { body?: string } => ({
-    body: typeof s.body === "string" ? s.body : undefined,
+  validateSearch: (s: Record<string, unknown>): { body?: string | undefined } => ({
+    body: typeof s["body"] === "string" ? (s["body"] as string) : undefined,
   }),
   head: () => ({
     meta: [
