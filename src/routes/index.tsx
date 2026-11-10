@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/site/Chrome";
 import { VehicleCard, VehicleLightbox } from "@/components/site/VehicleGallery";
@@ -54,21 +54,34 @@ function Home() {
           className="relative z-10 mx-auto mt-[30vh] w-[135%] max-w-none -translate-x-[10%] mix-blend-multiply md:mt-[16vh] md:w-full md:translate-x-[8%]"
         >
           <img src={HERO_SLIDES[0].src} alt="" aria-hidden="true" width={1920} height={1088} className="invisible w-full" />
-          {HERO_SLIDES.map((s, i) => (
+          {HERO_SLIDES.map((s, i) =>
+            i === 0 ? null : (
+              <img
+                key={s.id}
+                src={s.src}
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+                width={1920}
+                height={1088}
+                className="invisible absolute inset-0 h-full w-full object-contain"
+              />
+            ),
+          )}
+          <AnimatePresence mode="wait">
             <motion.img
-              key={s.id}
-              src={s.src}
-              alt={s.alt}
+              key={slide}
+              src={HERO_SLIDES[slide]?.src}
+              alt={HERO_SLIDES[slide]?.alt}
               width={1920}
               height={1088}
-              loading={i === 0 ? "eager" : "lazy"}
-              aria-hidden={i !== slide}
-              initial={false}
-              animate={{ opacity: i === slide ? 1 : 0, scale: i === slide ? 1 : 1.05 }}
-              transition={{ duration: reduce ? 0 : 1.3, ease }}
+              initial={{ opacity: 0, scale: 1.04 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.99, transition: { duration: reduce ? 0 : 0.45, ease } }}
+              transition={{ duration: reduce ? 0 : 0.8, ease }}
               className="absolute inset-0 h-full w-full object-contain"
             />
-          ))}
+          </AnimatePresence>
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 2, ease }} className="relative z-20 mx-auto -mt-[8vw] flex max-w-[1440px] flex-col gap-6 px-5 pb-12 md:flex-row md:items-end md:justify-between md:px-10">
           <div className="flex flex-col gap-5">
