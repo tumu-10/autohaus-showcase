@@ -77,8 +77,8 @@ function Home() {
               height={1088}
               initial={{ opacity: 0, scale: 1.04 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.99, transition: { duration: reduce ? 0 : 0.45, ease } }}
-              transition={{ duration: reduce ? 0 : 0.8, ease }}
+              exit={{ opacity: 0, scale: 0.995, transition: { duration: reduce ? 0 : 0.28, ease } }}
+              transition={{ duration: reduce ? 0 : 0.45, ease }}
               className="absolute inset-0 h-full w-full object-contain"
             />
           </AnimatePresence>
