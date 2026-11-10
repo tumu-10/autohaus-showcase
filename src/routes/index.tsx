@@ -1,9 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef, useState } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/site/Chrome";
 import { VehicleCard, VehicleLightbox } from "@/components/site/VehicleGallery";
-import { IMAGES, SITE, VEHICLES, whatsappLink, type Vehicle } from "@/lib/site";
+import { HERO_SLIDES, IMAGES, SITE, VEHICLES, whatsappLink, type Vehicle } from "@/lib/site";
 
 export const Route = createFileRoute("/")({
   head: () => ({
