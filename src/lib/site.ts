@@ -48,8 +48,8 @@ export const IMAGES = { hero, defender, g63, sedan, coupe, pickup };
 /** Hero slideshow — shown one after another on the home page. */
 export const HERO_SLIDES = [
   { id: "range-rover", src: hero, label: "Range Rover", alt: "Black luxury SUV in a white studio" },
-  { id: "defender", src: defender, label: "Defender 2026", alt: "Black Land Rover Defender 2026 in a white studio" },
-  { id: "brabus-g63", src: g63, label: "Brabus G63", alt: "Black Brabus-tuned Mercedes G63 in a white studio" },
+  { id: "defender", src: defender, label: "Defender 2026", alt: "Army green Land Rover Defender 2026 in a white studio" },
+  { id: "brabus-g63", src: g63, label: "Brabus G63", alt: "Red Brabus-tuned Mercedes G63 in a white studio" },
 ] as const;
 
 export const formatUGX = (n: number) => "UGX " + n.toLocaleString("en-US");
