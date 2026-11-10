@@ -92,8 +92,9 @@ function Home() {
               <span className="eyebrow text-muted-foreground">{HERO_SLIDES[slide].label}</span>
             </div>
             <p className="max-w-sm text-base text-muted-foreground">
-            Discover exceptional vehicles, explore flexible car hire and experience automotive excellence with Shamran Motors.
-          </p>
+              Discover exceptional vehicles, explore flexible car hire and experience automotive excellence with Shamran Motors.
+            </p>
+          </div>
           <div className="flex flex-wrap gap-3">
             <Link to="/cars" className="eyebrow bg-brand px-7 py-4 text-primary-foreground transition-colors hover:bg-ink">Explore our cars</Link>
             <Link to="/car-hire" className="eyebrow border border-foreground px-7 py-4 transition-colors hover:bg-ink hover:text-ink-foreground">Explore car hire</Link>
