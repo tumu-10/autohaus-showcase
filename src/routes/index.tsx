@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/site/Chrome";
 import { VehicleCard, VehicleLightbox } from "@/components/site/VehicleGallery";
 import { HERO_SLIDES, IMAGES, SITE, VEHICLES, whatsappLink, type Vehicle } from "@/lib/site";
-import { HERO_INTERVAL_MS, nextSlide } from "@/lib/hero-slideshow";
+import { useHeroSlideshow } from "@/lib/hero-slideshow";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -27,13 +27,8 @@ function Home() {
   const textX = useTransform(scrollYProgress, [0, 1], ["0%", "-12%"]);
   const [open, setOpen] = useState<Vehicle | null>(null);
   const reduce = useReducedMotion();
-  const [slide, setSlide] = useState(0);
+  const [slide, setSlide] = useHeroSlideshow(HERO_SLIDES.length);
   const [shown, setShown] = useState(0);
-
-  useEffect(() => {
-    const t = setInterval(() => setSlide((s) => nextSlide(s, HERO_SLIDES.length)), HERO_INTERVAL_MS);
-    return () => clearInterval(t);
-  }, []);
 
   return (
     <>
