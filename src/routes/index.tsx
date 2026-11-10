@@ -89,7 +89,7 @@ function Home() {
                   />
                 </button>
               ))}
-              <span className="eyebrow text-muted-foreground">{HERO_SLIDES[slide].label}</span>
+              <span className="eyebrow text-muted-foreground">{HERO_SLIDES[slide]?.label}</span>
             </div>
             <p className="max-w-sm text-base text-muted-foreground">
               Discover exceptional vehicles, explore flexible car hire and experience automotive excellence with Shamran Motors.
