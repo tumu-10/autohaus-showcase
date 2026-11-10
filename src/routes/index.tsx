@@ -25,6 +25,13 @@ function Home() {
   const carY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
   const textX = useTransform(scrollYProgress, [0, 1], ["0%", "-12%"]);
   const [open, setOpen] = useState<Vehicle | null>(null);
+  const reduce = useReducedMotion();
+  const [slide, setSlide] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => setSlide((s) => (s + 1) % HERO_SLIDES.length), 3000);
+    return () => clearInterval(t);
+  }, []);
 
   return (
     <>
@@ -39,19 +46,52 @@ function Home() {
             </div>
           ))}
         </motion.div>
-        <motion.img
+        <motion.div
           style={{ y: carY }}
           initial={{ opacity: 0, x: 120 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1.6, delay: 1.5, ease }}
-          src={IMAGES.hero}
-          alt="Black luxury SUV in a white studio"
-          width={1920}
-          height={1088}
           className="relative z-10 mx-auto mt-[30vh] w-[135%] max-w-none -translate-x-[10%] mix-blend-multiply md:mt-[16vh] md:w-full md:translate-x-[8%]"
-        />
+        >
+          <img src={HERO_SLIDES[0].src} alt="" aria-hidden="true" width={1920} height={1088} className="invisible w-full" />
+          {HERO_SLIDES.map((s, i) => (
+            <motion.img
+              key={s.id}
+              src={s.src}
+              alt={s.alt}
+              width={1920}
+              height={1088}
+              loading={i === 0 ? "eager" : "lazy"}
+              aria-hidden={i !== slide}
+              initial={false}
+              animate={{ opacity: i === slide ? 1 : 0, scale: i === slide ? 1 : 1.05 }}
+              transition={{ duration: reduce ? 0 : 1.3, ease }}
+              className="absolute inset-0 h-full w-full object-contain"
+            />
+          ))}
+        </motion.div>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 2, ease }} className="relative z-20 mx-auto -mt-[8vw] flex max-w-[1440px] flex-col gap-6 px-5 pb-12 md:flex-row md:items-end md:justify-between md:px-10">
-          <p className="max-w-sm text-base text-muted-foreground">
+          <div className="flex flex-col gap-5">
+            <div className="flex items-center gap-4">
+              {HERO_SLIDES.map((s, i) => (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => setSlide(i)}
+                  aria-label={`Show ${s.label}`}
+                  aria-current={i === slide}
+                  className="group py-2"
+                >
+                  <span
+                    className={`block h-px transition-all duration-500 ${
+                      i === slide ? "w-14 bg-brand" : "w-8 bg-foreground/25 group-hover:bg-foreground/60"
+                    }`}
+                  />
+                </button>
+              ))}
+              <span className="eyebrow text-muted-foreground">{HERO_SLIDES[slide].label}</span>
+            </div>
+            <p className="max-w-sm text-base text-muted-foreground">
             Discover exceptional vehicles, explore flexible car hire and experience automotive excellence with Shamran Motors.
           </p>
           <div className="flex flex-wrap gap-3">
