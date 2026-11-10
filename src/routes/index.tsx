@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/site/Chrome";
 import { VehicleCard, VehicleLightbox } from "@/components/site/VehicleGallery";
 import { HERO_SLIDES, IMAGES, SITE, VEHICLES, whatsappLink, type Vehicle } from "@/lib/site";
+import { HERO_INTERVAL_MS, nextSlide } from "@/lib/hero-slideshow";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,7 +31,7 @@ function Home() {
   const [shown, setShown] = useState(0);
 
   useEffect(() => {
-    const t = setInterval(() => setSlide((s) => (s + 1) % HERO_SLIDES.length), 3000);
+    const t = setInterval(() => setSlide((s) => nextSlide(s, HERO_SLIDES.length)), HERO_INTERVAL_MS);
     return () => clearInterval(t);
   }, []);
 
