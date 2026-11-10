@@ -65,18 +65,21 @@ function Home() {
               />
             ),
           )}
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="sync">
             <motion.img
               key={slide}
               src={HERO_SLIDES[slide]?.src}
               alt={HERO_SLIDES[slide]?.alt}
               width={1920}
               height={1088}
-              initial={{ opacity: 0, scale: 1.04 }}
-              animate={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, scale: slide === 0 ? 1.02 : 0.96 }}
+              animate={{ opacity: 1, scale: slide === 0 ? 1 : 0.94 }}
               onAnimationComplete={() => setShown(slide)}
-              exit={{ opacity: 0, scale: 0.995, transition: { duration: reduce ? 0 : 0.28, ease } }}
-              transition={{ duration: reduce ? 0 : 0.45, ease }}
+              exit={{ opacity: 0 }}
+              transition={{
+                opacity: { duration: reduce ? 0 : 0.8, ease: "easeInOut" },
+                scale: { duration: reduce ? 0 : 0.9, ease },
+              }}
               className="absolute inset-0 h-full w-full object-contain"
             />
           </AnimatePresence>

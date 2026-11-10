@@ -10,7 +10,11 @@ export default defineConfig({
   },
   plugins: [
     tanstackStart({ server: { entry: "server" } }),
-    netlify(),
+    netlify({
+      dev: {
+        edgeFunctions: { enabled: false },
+      },
+    }),
     react(),
     tailwindcss(),
   ],
