@@ -27,6 +27,7 @@ function Home() {
   const [open, setOpen] = useState<Vehicle | null>(null);
   const reduce = useReducedMotion();
   const [slide, setSlide] = useState(0);
+  const [shown, setShown] = useState(0);
 
   useEffect(() => {
     const t = setInterval(() => setSlide((s) => (s + 1) % HERO_SLIDES.length), 3000);
@@ -77,6 +78,7 @@ function Home() {
               height={1088}
               initial={{ opacity: 0, scale: 1.04 }}
               animate={{ opacity: 1, scale: 1 }}
+              onAnimationComplete={() => setShown(slide)}
               exit={{ opacity: 0, scale: 0.995, transition: { duration: reduce ? 0 : 0.28, ease } }}
               transition={{ duration: reduce ? 0 : 0.45, ease }}
               className="absolute inset-0 h-full w-full object-contain"
@@ -102,7 +104,7 @@ function Home() {
                   />
                 </button>
               ))}
-              <span className="eyebrow text-muted-foreground">{HERO_SLIDES[slide]?.label}</span>
+              <span className="eyebrow text-muted-foreground">{HERO_SLIDES[shown]?.label}</span>
             </div>
             <p className="max-w-sm text-base text-muted-foreground">
               Discover exceptional vehicles, explore flexible car hire and experience automotive excellence with Shamran Motors.
