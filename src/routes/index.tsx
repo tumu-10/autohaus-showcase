@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Reveal } from "@/components/site/Chrome";
 import { VehicleCard, VehicleLightbox } from "@/components/site/VehicleGallery";
 import { HERO_SLIDES, IMAGES, SITE, VEHICLES, whatsappLink, type Vehicle } from "@/lib/site";
