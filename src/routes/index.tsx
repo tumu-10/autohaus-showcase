@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion, useScroll, useTransform } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef, useState } from "react";
 import { Reveal } from "@/components/site/Chrome";
 import { VehicleCard, VehicleLightbox } from "@/components/site/VehicleGallery";
-import { IMAGES, SITE, VEHICLES, whatsappLink, type Vehicle } from "@/lib/site";
+import { HERO_SLIDES, IMAGES, SITE, VEHICLES, whatsappLink, type Vehicle } from "@/lib/site";
+import { useHeroSlideshow } from "@/lib/hero-slideshow";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -25,6 +26,9 @@ function Home() {
   const carY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
   const textX = useTransform(scrollYProgress, [0, 1], ["0%", "-12%"]);
   const [open, setOpen] = useState<Vehicle | null>(null);
+  const reduce = useReducedMotion();
+  const [slide, setSlide] = useHeroSlideshow(HERO_SLIDES.length);
+  const [shown, setShown] = useState(0);
 
   return (
     <>
@@ -39,21 +43,69 @@ function Home() {
             </div>
           ))}
         </motion.div>
-        <motion.img
+        <motion.div
           style={{ y: carY }}
           initial={{ opacity: 0, x: 120 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1.6, delay: 1.5, ease }}
-          src={IMAGES.hero}
-          alt="Black luxury SUV in a white studio"
-          width={1920}
-          height={1088}
           className="relative z-10 mx-auto mt-[30vh] w-[135%] max-w-none -translate-x-[10%] mix-blend-multiply md:mt-[16vh] md:w-full md:translate-x-[8%]"
-        />
+        >
+          <img src={HERO_SLIDES[0].src} alt="" aria-hidden="true" width={1920} height={1088} className="invisible w-full" />
+          {HERO_SLIDES.map((s, i) =>
+            i === 0 ? null : (
+              <img
+                key={s.id}
+                src={s.src}
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+                width={1920}
+                height={1088}
+                className="invisible absolute inset-0 h-full w-full object-contain"
+              />
+            ),
+          )}
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={slide}
+              src={HERO_SLIDES[slide]?.src}
+              alt={HERO_SLIDES[slide]?.alt}
+              width={1920}
+              height={1088}
+              initial={{ opacity: 0, scale: 1.04 }}
+              animate={{ opacity: 1, scale: 1 }}
+              onAnimationComplete={() => setShown(slide)}
+              exit={{ opacity: 0, scale: 0.995, transition: { duration: reduce ? 0 : 0.28, ease } }}
+              transition={{ duration: reduce ? 0 : 0.45, ease }}
+              className="absolute inset-0 h-full w-full object-contain"
+            />
+          </AnimatePresence>
+        </motion.div>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 2, ease }} className="relative z-20 mx-auto -mt-[8vw] flex max-w-[1440px] flex-col gap-6 px-5 pb-12 md:flex-row md:items-end md:justify-between md:px-10">
-          <p className="max-w-sm text-base text-muted-foreground">
-            Discover exceptional vehicles, explore flexible car hire and experience automotive excellence with Shamran Motors.
-          </p>
+          <div className="flex flex-col gap-5">
+            <div className="flex items-center gap-4">
+              {HERO_SLIDES.map((s, i) => (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => setSlide(i)}
+                  aria-label={`Show ${s.label}`}
+                  aria-current={i === slide}
+                  className="group py-2"
+                >
+                  <span
+                    className={`block h-px transition-all duration-500 ${
+                      i === slide ? "w-14 bg-brand" : "w-8 bg-foreground/25 group-hover:bg-foreground/60"
+                    }`}
+                  />
+                </button>
+              ))}
+              <span className="eyebrow text-muted-foreground">{HERO_SLIDES[shown]?.label}</span>
+            </div>
+            <p className="max-w-sm text-base text-muted-foreground">
+              Discover exceptional vehicles, explore flexible car hire and experience automotive excellence with Shamran Motors.
+            </p>
+          </div>
           <div className="flex flex-wrap gap-3">
             <Link to="/cars" className="eyebrow bg-brand px-7 py-4 text-primary-foreground transition-colors hover:bg-ink">Explore our cars</Link>
             <Link to="/car-hire" className="eyebrow border border-foreground px-7 py-4 transition-colors hover:bg-ink hover:text-ink-foreground">Explore car hire</Link>

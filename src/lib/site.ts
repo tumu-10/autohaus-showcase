@@ -1,4 +1,6 @@
 import hero from "@/assets/hero-suv.jpg";
+import defender from "@/assets/hero-defender.jpg";
+import g63 from "@/assets/hero-g63.jpg";
 import sedan from "@/assets/car-sedan.jpg";
 import coupe from "@/assets/car-coupe.jpg";
 import pickup from "@/assets/car-pickup.jpg";
@@ -41,7 +43,14 @@ export const VEHICLES: Vehicle[] = [
   { id: "demo-pickup", make: "Demo", model: "Double Cab 4x4", year: 2020, priceUGX: 145_000_000, transmission: "Manual", fuel: "Diesel", mileageKm: 66_000, body: "Pickup", description: "Sample listing for a double-cab pickup. Details are for demonstration.", images: [pickup, hero, sedan] },
 ];
 
-export const IMAGES = { hero, sedan, coupe, pickup };
+export const IMAGES = { hero, defender, g63, sedan, coupe, pickup };
+
+/** Hero slideshow — shown one after another on the home page. */
+export const HERO_SLIDES = [
+  { id: "range-rover", src: hero, label: "Range Rover", alt: "Black luxury SUV in a white studio" },
+  { id: "defender", src: defender, label: "Defender 2026", alt: "Black Land Rover Defender 2026 in a white studio" },
+  { id: "brabus-g63", src: g63, label: "Brabus G63", alt: "Black Brabus-tuned Mercedes G63 in a white studio" },
+] as const;
 
 export const formatUGX = (n: number) => "UGX " + n.toLocaleString("en-US");
 export const formatKm = (n: number) => n.toLocaleString("en-US") + " km";

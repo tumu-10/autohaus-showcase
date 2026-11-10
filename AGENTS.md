@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- Timed UI behaviour (e.g. the hero photo rotation) lives in a small module under `src/lib` with a vitest test, not inline in a route component, so the timing can be verified without a browser.
