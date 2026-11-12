@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { PageHero } from "@/components/site/Chrome";
+import { TextPressure } from "@/components/site/TextPressure";
 import { SITE, whatsappLink } from "@/lib/site";
 import { validateContact, type ContactForm } from "@/lib/contact";
 
@@ -32,7 +32,12 @@ function Contact() {
   const field = "w-full border-b bg-transparent py-3 outline-none focus:border-brand";
   return (
     <>
-      <PageHero eyebrow="Contact" title="Say hello." />
+      <section className="mx-auto max-w-[1440px] px-5 pb-12 pt-32 md:px-10 md:pt-40">
+        <p className="eyebrow text-brand">Contact</p>
+        <div className="mt-4 h-[clamp(3.75rem,15vw,5.5rem)] w-full md:h-[10vw] md:max-h-36 md:w-1/2 md:max-w-[720px]">
+          <TextPressure text="Say hello." textColor="var(--foreground)" minFontSize={28} className="display" />
+        </div>
+      </section>
       <section className="mx-auto grid grid-cols-1 max-w-[1440px] gap-16 px-5 pb-24 md:grid-cols-2 md:px-10">
         <div className="space-y-8">
           <div><p className="eyebrow text-muted-foreground">Visit</p><p className="display mt-2 text-4xl">{SITE.location}</p></div>

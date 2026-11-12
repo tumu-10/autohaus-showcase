@@ -2,13 +2,16 @@ import { Link } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
 import { Menu, MessageCircle, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useRouterState } from "@tanstack/react-router";
 import { SITE, whatsappLink } from "@/lib/site";
+import { useCompare } from "@/hooks/compare-context";
 
 const NAV = [
   { to: "/cars", label: "Our Cars" },
   { to: "/car-hire", label: "Car Hire" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
+  { to: "/admin/login", label: "Admin" },
 ] as const;
 
 export function Wordmark() {
@@ -35,7 +38,7 @@ export function Header() {
       <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-5 md:px-10">
         <Link to="/" aria-label="Shamran Motors home" onClick={() => setOpen(false)}>
           <span className="flex h-[52px] w-[120px] items-center justify-center">
-            <img src="/logo-transparent.png" alt="" className="h-full w-full object-contain" />
+            <img src="/logo-tagline-black.png" alt="" className="h-full w-full object-contain" />
           </span>
         </Link>
         <nav className="hidden items-center gap-8 md:flex">
@@ -48,7 +51,7 @@ export function Header() {
             Enquire
           </a>
         </nav>
-        <button className="md:hidden" aria-label={open ? "Close menu" : "Open menu"} onClick={() => setOpen(!open)}>
+        <button className="flex min-h-11 min-w-11 items-center justify-center md:hidden" aria-label={open ? "Close menu" : "Open menu"} onClick={() => setOpen(!open)}>
           {open ? <X /> : <Menu />}
         </button>
       </div>
@@ -75,7 +78,7 @@ export function Header() {
 export function Footer() {
   return (
     <footer className="bg-ink text-ink-foreground">
-      <div className="mx-auto max-w-[1440px] px-5 py-16 md:px-10">
+      <div className="mx-auto max-w-[1440px] px-5 pt-16 pb-28 md:px-10 md:py-16">
         <p className="display text-[18vw] leading-none md:text-[13vw]">
           Shamran<span className="text-brand">.</span>
         </p>
@@ -86,20 +89,21 @@ export function Footer() {
           </div>
           <div>
             <p className="eyebrow mb-3 opacity-60">Write</p>
-            <a className="link-line" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+            <a className="link-line inline-flex min-h-11 max-w-full items-center break-all" href={`mailto:${SITE.email}`}>{SITE.email}</a>
           </div>
           <div>
             <p className="eyebrow mb-3 opacity-60">Follow</p>
             <div className="flex flex-col gap-1">
-              <a className="link-line w-fit" href={SITE.instagram} target="_blank" rel="noreferrer">Instagram</a>
-              <a className="link-line w-fit" href={SITE.tiktok} target="_blank" rel="noreferrer">TikTok</a>
+              <a className="link-line inline-flex min-h-11 w-fit items-center" href={SITE.instagram} target="_blank" rel="noreferrer">Instagram</a>
+              <a className="link-line inline-flex min-h-11 w-fit items-center" href={SITE.tiktok} target="_blank" rel="noreferrer">TikTok</a>
             </div>
           </div>
           <div>
             <p className="eyebrow mb-3 opacity-60">Legal</p>
             <div className="flex flex-col gap-1">
-              <Link className="link-line w-fit" to="/privacy">Privacy Policy</Link>
-              <Link className="link-line w-fit" to="/terms">Terms of Service</Link>
+              <Link className="link-line inline-flex min-h-11 w-fit items-center" to="/privacy">Privacy Policy</Link>
+              <Link className="link-line inline-flex min-h-11 w-fit items-center" to="/terms">Terms of Service</Link>
+              <Link className="link-line inline-flex min-h-11 w-fit items-center" to="/admin/login">Admin Login</Link>
             </div>
           </div>
         </div>
@@ -110,13 +114,17 @@ export function Footer() {
 }
 
 export function WhatsAppFab() {
+  const { selectedIds } = useCompare();
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const raiseAboveCompareBar = pathname === "/cars" && selectedIds.length > 0;
+
   return (
     <a
       href={whatsappLink("Hello Shamran Motors, I have an enquiry.")}
       target="_blank"
       rel="noreferrer"
       aria-label="Chat on WhatsApp"
-      className="fixed bottom-7 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-brand text-primary-foreground shadow-lg transition-transform hover:scale-105"
+      className={`fixed ${raiseAboveCompareBar ? "bottom-32" : "bottom-7"} right-5 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-brand text-primary-foreground shadow-lg transition-transform hover:scale-105 md:h-14 md:w-14`}
     >
       <span aria-hidden="true" className="whatsapp-pulse-ring absolute inset-0 rounded-full border-2 border-brand" />
       <span className="whatsapp-icon-motion">

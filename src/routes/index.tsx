@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { useState } from "react";
 import { Reveal } from "@/components/site/Chrome";
 import { VehicleCard, VehicleLightbox } from "@/components/site/VehicleGallery";
-import { HERO_SLIDES, IMAGES, SITE, VEHICLES, whatsappLink, type Vehicle } from "@/lib/site";
+import { HERO_SLIDES, IMAGES, SITE, whatsappLink, type Vehicle } from "@/lib/site";
 import { useHeroSlideshow } from "@/lib/hero-slideshow";
+import { useCars } from "@/hooks/useCars";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -18,107 +19,74 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const ease = [0.16, 1, 0.3, 1] as const;
-
 function Home() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const carY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
-  const textX = useTransform(scrollYProgress, [0, 1], ["0%", "-12%"]);
   const [open, setOpen] = useState<Vehicle | null>(null);
-  const reduce = useReducedMotion();
   const [slide, setSlide] = useHeroSlideshow(HERO_SLIDES.length);
-  const [shown, setShown] = useState(0);
+  const reduceMotion = useReducedMotion();
+  const vehicles = useCars();
 
   return (
     <>
       {/* 01 — Cinematic showroom */}
-      <section ref={ref} className="relative min-h-[100svh] overflow-hidden bg-background pt-16">
-        <motion.div style={{ x: textX }} className="pointer-events-none absolute inset-x-0 top-[14vh] select-none whitespace-nowrap px-5 md:px-10">
+      <section className="relative min-h-[100svh] overflow-hidden bg-background pt-16">
+        <div className="pointer-events-none relative z-10 mx-auto select-none px-3 md:absolute md:inset-x-0 md:top-[14vh] md:px-10 lg:whitespace-nowrap">
           {["Drive your", "next chapter."].map((l, i) => (
             <div key={l} className="overflow-hidden">
-              <motion.h1 initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 1.1, delay: 1.3 + i * 0.12, ease }} className="display text-[14vw] text-brand md:text-[15vw]">
+              <h1 className="display text-[clamp(3.125rem,15vw,4.75rem)] font-bold text-brand sm:text-[clamp(4rem,10vw,8rem)] sm:font-normal lg:text-[15vw]">
                 {l}
-              </motion.h1>
+              </h1>
             </div>
           ))}
-        </motion.div>
-        <motion.div
-          style={{ y: carY }}
-          initial={{ opacity: 0, x: 120 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.6, delay: 1.5, ease }}
-          className="relative z-10 mx-auto mt-[30vh] w-[135%] max-w-none -translate-x-[10%] mix-blend-multiply md:mt-[16vh] md:w-full md:translate-x-[8%]"
-        >
-          <img src={HERO_SLIDES[0].src} alt="" aria-hidden="true" width={1920} height={1088} className="invisible w-full" />
-          {HERO_SLIDES.map((s, i) =>
-            i === 0 ? null : (
-              <img
-                key={s.id}
-                src={s.src}
-                alt=""
-                aria-hidden="true"
-                loading="lazy"
-                width={1920}
-                height={1088}
-                className="invisible absolute inset-0 h-full w-full object-contain"
-              />
-            ),
-          )}
-          <AnimatePresence mode="sync">
+        </div>
+        <div className="relative z-0 mx-auto mt-1 h-[42svh] min-h-60 max-h-[360px] w-full max-w-[1440px] mix-blend-multiply md:absolute md:inset-x-0 md:top-[18vh] md:mt-0 md:h-[60svh] md:min-h-0 md:max-h-none md:w-full lg:relative lg:inset-auto lg:z-10 lg:mt-[18vh] lg:h-auto lg:w-full lg:translate-x-[8%]">
+          <img src={HERO_SLIDES[0].src} alt="" aria-hidden="true" width={1920} height={1088} className="invisible h-full w-full object-contain lg:h-auto" />
+          <AnimatePresence mode="sync" initial={false}>
             <motion.img
               key={slide}
               src={HERO_SLIDES[slide]?.src}
               alt={HERO_SLIDES[slide]?.alt}
               width={1920}
               height={1088}
-              initial={{ opacity: 0, scale: slide === 0 ? 1.02 : 0.96 }}
-              animate={{ opacity: 1, scale: slide === 0 ? 1 : 0.94 }}
-              onAnimationComplete={() => setShown(slide)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{
-                opacity: { duration: reduce ? 0 : 0.8, ease: "easeInOut" },
-                scale: { duration: reduce ? 0 : 0.9, ease },
-              }}
+              transition={{ duration: reduceMotion ? 0 : 0.8, ease: "easeInOut" }}
               className="absolute inset-0 h-full w-full object-contain"
             />
           </AnimatePresence>
-        </motion.div>
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 2, ease }} className="relative z-20 mx-auto -mt-[8vw] flex max-w-[1440px] flex-col gap-6 px-5 pb-12 md:flex-row md:items-end md:justify-between md:px-10">
+        </div>
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-[5] hidden bg-gradient-to-b from-background/80 via-background/60 to-background/95 md:block lg:hidden" />
+        <div className="relative z-20 mx-auto mt-3 flex max-w-[1440px] flex-col gap-5 px-5 md:absolute md:inset-x-0 md:bottom-40 md:mt-0 lg:relative lg:bottom-auto lg:flex-row lg:items-end lg:justify-between lg:gap-6 lg:-mt-[8vw] lg:px-10 lg:pb-12">
           <div className="flex flex-col gap-5">
-            <div className="flex items-center gap-4">
-              {HERO_SLIDES.map((s, i) => (
+            <div className="flex items-center gap-2">
+              {HERO_SLIDES.map((heroSlide, index) => (
                 <button
-                  key={s.id}
+                  key={heroSlide.id}
                   type="button"
-                  onClick={() => setSlide(i)}
-                  aria-label={`Show ${s.label}`}
-                  aria-current={i === slide}
-                  className="group py-2"
+                  onClick={() => setSlide(index)}
+                  aria-label={`Show ${heroSlide.label}`}
+                  aria-current={index === slide}
+                  className="flex min-h-11 min-w-11 items-center justify-center"
                 >
-                  <span
-                    className={`block h-px transition-all duration-500 ${
-                      i === slide ? "w-14 bg-brand" : "w-8 bg-foreground/25 group-hover:bg-foreground/60"
-                    }`}
-                  />
+                  <span className={`block h-px ${index === slide ? "w-10 bg-brand" : "w-6 bg-foreground/30"}`} />
                 </button>
               ))}
-              <span className="eyebrow text-muted-foreground">{HERO_SLIDES[shown]?.label}</span>
+              <span className="eyebrow text-muted-foreground">{HERO_SLIDES[slide]?.label}</span>
             </div>
-            <p className="max-w-sm text-base text-muted-foreground">
+            <p className="max-w-sm text-lg text-muted-foreground sm:text-xl lg:text-base">
               Discover exceptional vehicles, explore flexible car hire and experience automotive excellence with Shamran Motors.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Link to="/cars" className="eyebrow bg-brand px-7 py-4 text-primary-foreground transition-colors hover:bg-ink">Explore our cars</Link>
-            <Link to="/car-hire" className="eyebrow border border-foreground px-7 py-4 transition-colors hover:bg-ink hover:text-ink-foreground">Explore car hire</Link>
+            <Link to="/cars" className="eyebrow min-h-12 bg-brand px-5 py-4 text-sm text-primary-foreground hover:bg-ink md:px-7">Explore our cars</Link>
+            <Link to="/car-hire" className="eyebrow min-h-12 border border-foreground px-5 py-4 text-sm hover:bg-ink hover:text-ink-foreground md:px-7">Explore car hire</Link>
           </div>
-        </motion.div>
-        <div className="relative z-20 mx-auto grid max-w-[1440px] grid-cols-2 border-t px-5 md:grid-cols-4 md:px-10">
+        </div>
+        <div className="relative inset-x-auto bottom-auto z-20 mx-auto mt-8 grid max-w-[1440px] grid-cols-2 border-t px-5 md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:px-10 lg:relative lg:bottom-auto lg:grid-cols-4">
           {(["SUV", "Sedan", "Coupe", "Pickup"] as const).map((b, i) => (
-            <Link key={b} to="/cars" search={{ body: b }} className="group flex items-center justify-between border-r py-5 pr-4 last:border-r-0">
+            <Link key={b} to="/cars" search={{ body: b }} className="group flex items-center justify-between border-r py-5 pr-4 last:border-r-0 last:pr-4 md:last:pr-20 lg:last:pr-4">
               <span className="eyebrow text-muted-foreground">0{i + 1}</span>
-              <span className="display text-2xl transition-colors group-hover:text-brand">{b}</span>
+              <span className="display text-2xl group-hover:text-brand">{b}</span>
             </Link>
           ))}
         </div>
@@ -135,7 +103,7 @@ function Home() {
             <p className="max-w-xs text-sm text-muted-foreground">Demonstration listings shown until current inventory is published. Tap any vehicle to browse photos and specifications.</p>
           </Reveal>
           <div className="mt-14 flex snap-x gap-6 overflow-x-auto pb-6 md:grid md:grid-cols-2 md:gap-x-10 md:gap-y-16 md:overflow-visible">
-            {VEHICLES.map((v, i) => (
+            {vehicles.map((v, i) => (
               <div key={v.id} className={`w-[85vw] shrink-0 snap-start md:w-auto ${i % 2 ? "md:mt-24" : ""}`}>
                 <VehicleCard v={v} index={i} onOpen={() => setOpen(v)} />
               </div>

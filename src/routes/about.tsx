@@ -21,7 +21,7 @@ function About() {
       <section className="mx-auto grid max-w-[1440px] gap-12 px-5 pb-24 md:grid-cols-2 md:px-10">
         <Reveal>
           <p className="text-2xl leading-snug">Shamran Motors is an automotive business based in Bugolobi, Kampala. We sell vehicles, offer car hire and create showcases that present cars the way they deserve.</p>
-          <p className="mt-6 text-muted-foreground">Our philosophy is simple: be clear about every vehicle, be personal with every customer and make the process feel effortless — from first look to handover.</p>
+          <p className="mt-6 text-muted-foreground">Our philosophy is simple: be clear about every vehicle, be personal with every customer and make the process feel effortless from first look to handover.</p>
         </Reveal>
         <Reveal delay={0.1}>
           <img src={IMAGES.sedan} alt="White sedan in studio" loading="lazy" width={1536} height={1024} className="w-full" />

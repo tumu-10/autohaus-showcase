@@ -114,6 +114,21 @@
   ::selection { background: var(--brand); color: var(--primary-foreground); }
 }
 
+html:has(.admin-shell) {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
+}
+
+.admin-shell :is(a, button, input, select, textarea) {
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 180ms;
+  transition-timing-function: ease-out;
+}
+
+.admin-shell :is(input, select, textarea):focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
 @utility display {
   font-family: var(--font-display);
   text-transform: uppercase;

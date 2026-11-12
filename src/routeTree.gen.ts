@@ -11,11 +11,19 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as CarHireRouteImport } from './routes/car-hire'
 import { Route as CarsRouteImport } from './routes/cars'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminCarsRouteImport } from './routes/admin/cars'
+import { Route as AdminHireRouteImport } from './routes/admin/hire'
+import { Route as AdminLoginRouteImport } from './routes/admin/login'
+import { Route as CarsIndexRouteImport } from './routes/cars/index'
+import { Route as CarsCompareRouteImport } from './routes/cars/compare'
+import { Route as CarsIdDetailsRouteImport } from './routes/cars/$id/details'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -25,6 +33,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CarHireRoute = CarHireRouteImport.update({
@@ -52,58 +65,150 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCarsRoute = AdminCarsRouteImport.update({
+  id: '/cars',
+  path: '/cars',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminHireRoute = AdminHireRouteImport.update({
+  id: '/hire',
+  path: '/hire',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AdminRoute,
+} as any)
+const CarsIndexRoute = CarsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CarsRoute,
+} as any)
+const CarsCompareRoute = CarsCompareRouteImport.update({
+  id: '/compare',
+  path: '/compare',
+  getParentRoute: () => CarsRoute,
+} as any)
+const CarsIdDetailsRoute = CarsIdDetailsRouteImport.update({
+  id: '/$id/details',
+  path: '/$id/details',
+  getParentRoute: () => CarsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
   '/car-hire': typeof CarHireRoute
-  '/cars': typeof CarsRoute
+  '/cars': typeof CarsRouteWithChildren
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/admin/cars': typeof AdminCarsRoute
+  '/admin/hire': typeof AdminHireRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/cars/compare': typeof CarsCompareRoute
+  '/admin/': typeof AdminIndexRoute
+  '/cars/': typeof CarsIndexRoute
+  '/cars/$id/details': typeof CarsIdDetailsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/car-hire': typeof CarHireRoute
-  '/cars': typeof CarsRoute
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/admin/cars': typeof AdminCarsRoute
+  '/admin/hire': typeof AdminHireRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/cars/compare': typeof CarsCompareRoute
+  '/admin': typeof AdminIndexRoute
+  '/cars': typeof CarsIndexRoute
+  '/cars/$id/details': typeof CarsIdDetailsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
   '/car-hire': typeof CarHireRoute
-  '/cars': typeof CarsRoute
+  '/cars': typeof CarsRouteWithChildren
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/admin/cars': typeof AdminCarsRoute
+  '/admin/hire': typeof AdminHireRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/cars/compare': typeof CarsCompareRoute
+  '/admin/': typeof AdminIndexRoute
+  '/cars/': typeof CarsIndexRoute
+  '/cars/$id/details': typeof CarsIdDetailsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/about' | '/car-hire' | '/cars' | '/contact' | '/privacy' | '/terms'
-  fileRoutesByTo: FileRoutesByTo
-  to:
-    '/' | '/about' | '/car-hire' | '/cars' | '/contact' | '/privacy' | '/terms'
-  id:
-    | '__root__'
     | '/'
     | '/about'
+    | '/admin'
     | '/car-hire'
     | '/cars'
     | '/contact'
     | '/privacy'
     | '/terms'
+    | '/admin/cars'
+    | '/admin/hire'
+    | '/admin/login'
+    | '/cars/compare'
+    | '/admin/'
+    | '/cars/'
+    | '/cars/$id/details'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/about'
+    | '/car-hire'
+    | '/contact'
+    | '/privacy'
+    | '/terms'
+    | '/admin/cars'
+    | '/admin/hire'
+    | '/admin/login'
+    | '/cars/compare'
+    | '/admin'
+    | '/cars'
+    | '/cars/$id/details'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/car-hire'
+    | '/cars'
+    | '/contact'
+    | '/privacy'
+    | '/terms'
+    | '/admin/cars'
+    | '/admin/hire'
+    | '/admin/login'
+    | '/cars/compare'
+    | '/admin/'
+    | '/cars/'
+    | '/cars/$id/details'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRouteWithChildren
   CarHireRoute: typeof CarHireRoute
-  CarsRoute: typeof CarsRoute
+  CarsRoute: typeof CarsRouteWithChildren
   ContactRoute: typeof ContactRoute
   PrivacyRoute: typeof PrivacyRoute
   TermsRoute: typeof TermsRoute
@@ -123,6 +228,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/car-hire': {
@@ -160,14 +272,94 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/cars': {
+      id: '/admin/cars'
+      path: '/cars'
+      fullPath: '/admin/cars'
+      preLoaderRoute: typeof AdminCarsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/hire': {
+      id: '/admin/hire'
+      path: '/hire'
+      fullPath: '/admin/hire'
+      preLoaderRoute: typeof AdminHireRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/cars/': {
+      id: '/cars/'
+      path: '/'
+      fullPath: '/cars/'
+      preLoaderRoute: typeof CarsIndexRouteImport
+      parentRoute: typeof CarsRoute
+    }
+    '/cars/compare': {
+      id: '/cars/compare'
+      path: '/compare'
+      fullPath: '/cars/compare'
+      preLoaderRoute: typeof CarsCompareRouteImport
+      parentRoute: typeof CarsRoute
+    }
+    '/cars/$id/details': {
+      id: '/cars/$id/details'
+      path: '/$id/details'
+      fullPath: '/cars/$id/details'
+      preLoaderRoute: typeof CarsIdDetailsRouteImport
+      parentRoute: typeof CarsRoute
+    }
   }
 }
+
+interface AdminRouteChildren {
+  AdminCarsRoute: typeof AdminCarsRoute
+  AdminHireRoute: typeof AdminHireRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminCarsRoute: AdminCarsRoute,
+  AdminHireRoute: AdminHireRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
+interface CarsRouteChildren {
+  CarsCompareRoute: typeof CarsCompareRoute
+  CarsIndexRoute: typeof CarsIndexRoute
+  CarsIdDetailsRoute: typeof CarsIdDetailsRoute
+}
+
+const CarsRouteChildren: CarsRouteChildren = {
+  CarsCompareRoute: CarsCompareRoute,
+  CarsIndexRoute: CarsIndexRoute,
+  CarsIdDetailsRoute: CarsIdDetailsRoute,
+}
+
+const CarsRouteWithChildren = CarsRoute._addFileChildren(CarsRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AdminRoute: AdminRouteWithChildren,
   CarHireRoute: CarHireRoute,
-  CarsRoute: CarsRoute,
+  CarsRoute: CarsRouteWithChildren,
   ContactRoute: ContactRoute,
   PrivacyRoute: PrivacyRoute,
   TermsRoute: TermsRoute,
