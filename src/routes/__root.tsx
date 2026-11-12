@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useLocation,
   HeadContent,
   Scripts,
   type ErrorComponentProps,
@@ -11,6 +12,7 @@ import {
 import type { ReactNode } from "react";
 
 import { Header, Footer, WhatsAppFab, Preloader } from "../components/site/Chrome";
+import { Toaster } from "@/components/ui/sonner";
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
@@ -118,17 +120,19 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const admin = useLocation({ select: (l) => l.pathname.startsWith("/admin") });
+  const carsPage = useLocation({ select: (l) => l.pathname === "/cars" });
 
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Preloader />
-      <Header />
+      {!admin && <><Preloader /><Header /></>}
       <main>
         <Outlet />
       </main>
-      <Footer />
-      <WhatsAppFab />
+      {!admin && <Footer />}
+      {!admin && !carsPage && <WhatsAppFab />}
+      <Toaster position="top-center" />
     </QueryClientProvider>
   );
 }
