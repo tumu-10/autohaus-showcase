@@ -38,7 +38,7 @@ function AdminLogin() {
       <section className="w-full max-w-md border bg-background p-6 shadow-sm sm:p-10">
         <Link to="/" aria-label="Shamran Motors home" className="flex min-h-11 items-center justify-center">
           <span className="flex w-52 max-w-full items-center justify-center">
-            <img src="/file.png" alt="Shamran Motors — Motors, more than just cars" className="h-auto w-full object-contain" />
+            <img src="/logo-tagline-black.png" alt="Shamran Motors — Motors, more than just cars" className="h-auto w-full object-contain" />
           </span>
         </Link>
         <p className="eyebrow mt-10 text-brand">Demo admin</p>
