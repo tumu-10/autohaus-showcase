@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { AnimatePresence } from "motion/react";
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
-import { PageHero } from "@/components/site/Chrome";
+import { TextPressure } from "@/components/site/TextPressure";
 import { VehicleCard, VehicleLightbox } from "@/components/site/VehicleGallery";
 import { useCars } from "@/hooks/useCars";
 import { useCompare } from "@/hooks/compare-context";
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/cars/")({
     meta: [
       { title: "Our Cars | Shamran Motors" },
       { name: "description", content: "Browse vehicles at Shamran Motors, Kampala: photos, specifications and prices in UGX." },
-      { property: "og:title", content: "Our Cars | Shamran Motors" },
+      { property: "og:title", content: "Our Cars. | Shamran Motors" },
       { property: "og:description", content: "Browse the Shamran Motors vehicle showroom." },
     ],
   }),
@@ -52,7 +52,13 @@ function Cars() {
   const select = "min-h-11 border bg-background px-3 py-3 text-sm";
   return (
     <>
-      <PageHero eyebrow="The showroom" title="Our cars" intro="All listings below are demonstration content until current inventory is supplied." />
+      <section className="mx-auto max-w-[1440px] px-5 pb-12 pt-32 md:px-10 md:pt-40">
+        <p className="eyebrow text-brand">The showroom</p>
+        <div className="mt-4 h-[clamp(3.75rem,15vw,5.5rem)] w-full md:h-[10vw] md:max-h-36 md:w-1/2 md:max-w-[720px]">
+          <TextPressure text="Our cars" textColor="var(--foreground)" minFontSize={28} className="display" />
+        </div>
+        <p className="mt-6 max-w-xl text-lg text-muted-foreground">All listings below are demonstration content until current inventory is supplied.</p>
+      </section>
       <section className="mx-auto max-w-[1440px] px-5 pb-24 md:px-10">
         <div className="sticky top-16 z-20 flex flex-col gap-4 border-y bg-background py-4 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-wrap gap-2">
