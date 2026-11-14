@@ -33,3 +33,4 @@ use the editor.
 
 - Timed UI behaviour (e.g. the hero photo rotation) lives in a small module under `src/lib` with a vitest test, not inline in a route component, so the timing can be verified without a browser.
 - Keep the opening preloader isolated from shared site chrome and use its timing module for dismissal and tyre travel so animation and lifecycle stay synchronized.
+- The opening lifecycle is shared through context so the title reveal starts at dismissal; load Three.js inside the wheel's effect and dispose all rendering resources on unmount to keep SSR safe.

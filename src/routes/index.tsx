@@ -6,6 +6,7 @@ import { VehicleCard, VehicleLightbox } from "@/components/site/VehicleGallery";
 import { HERO_SLIDES, IMAGES, SITE, whatsappLink, type Vehicle } from "@/lib/site";
 import { useHeroSlideshow } from "@/lib/hero-slideshow";
 import { useCars } from "@/hooks/useCars";
+import { HeroTitle } from "@/components/site/HeroTitle";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -31,15 +32,7 @@ function Home() {
     <>
       {/* 01 — Cinematic showroom */}
       <section className="relative min-h-[100svh] overflow-hidden bg-background pt-16">
-        <div className="pointer-events-none relative z-10 mx-auto select-none px-3 md:absolute md:inset-x-0 md:top-[14vh] md:px-10 lg:whitespace-nowrap">
-          {["Drive your", "next chapter."].map((l, i) => (
-            <div key={l} className="overflow-hidden">
-              <h1 className="display text-[clamp(3.125rem,15vw,4.75rem)] font-bold text-brand sm:text-[clamp(4rem,10vw,8rem)] sm:font-normal lg:text-[15vw]">
-                {l}
-              </h1>
-            </div>
-          ))}
-        </div>
+        <HeroTitle />
         <div className="relative z-0 mx-auto mt-1 h-[42svh] min-h-60 max-h-[360px] w-full max-w-[1440px] mix-blend-multiply md:absolute md:inset-x-0 md:top-[18vh] md:mt-0 md:h-[60svh] md:min-h-0 md:max-h-none md:w-full lg:relative lg:inset-auto lg:z-10 lg:mt-[18vh] lg:h-auto lg:w-full lg:translate-x-[8%]">
           <img src={HERO_SLIDES[0].src} alt="" aria-hidden="true" width={1920} height={1088} className="invisible h-full w-full object-contain lg:h-auto" />
           <AnimatePresence mode="sync" initial={false}>

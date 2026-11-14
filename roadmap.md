@@ -1,4 +1,5 @@
 # Requested work
+- [x] Replace the flat loading tyre with a realistic 3D sporty wheel and reveal the hero title without changing the layout.
 - [x] Animate the existing logo and add a professional rolling-tyre preloader; verify dismissal and reduced-motion behaviour.
 - [ ] Preserve the design and improve the layered mobile/tablet hero.
 - [ ] Add two-car comparison, full details and sharing.

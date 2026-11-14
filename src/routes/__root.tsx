@@ -15,6 +15,7 @@ import { Header, Footer, WhatsAppFab, Preloader } from "../components/site/Chrom
 import { Toaster } from "../components/ui/sonner";
 import { CompareProvider } from "../hooks/useCompare";
 import appCss from "../styles.css?url";
+import { PreloaderContext, usePreloader } from "@/lib/preloader";
 
 function NotFoundComponent() {
   return (
@@ -120,18 +121,21 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
+  const openingVisible = usePreloader();
   const { queryClient } = Route.useRouteContext();
   const isAdmin = useRouterState({ select: (state) => state.location.pathname.startsWith("/admin") });
 
   return (
     <QueryClientProvider client={queryClient}>
       <CompareProvider>
+        <PreloaderContext.Provider value={openingVisible}>
         <Preloader />
         {!isAdmin && <Header />}
         {isAdmin ? <div><Outlet /></div> : <main><Outlet /></main>}
         {!isAdmin && <Footer />}
         {!isAdmin && <WhatsAppFab />}
         <Toaster />
+        </PreloaderContext.Provider>
       </CompareProvider>
     </QueryClientProvider>
   );
