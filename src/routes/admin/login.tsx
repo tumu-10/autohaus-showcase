@@ -4,7 +4,14 @@ import { toast } from "sonner";
 import { useDemoAdmin, ADMIN_AUTH_KEY, DEMO_ADMIN_CREDENTIALS } from "@/components/admin/admin-auth";
 
 export const Route = createFileRoute("/admin/login")({
-  head: () => ({ meta: [{ title: "Demo Admin Login | Shamran Motors" }] }),
+  head: () => ({ meta: [
+    { title: "Demo Admin Login | Shamran Motors" },
+    { name: "description", content: "Sign in to the Shamran Motors demonstration inventory manager." },
+    { property: "og:title", content: "Demo Admin Login | Shamran Motors" },
+    { property: "og:description", content: "Sign in to the Shamran Motors demonstration inventory manager." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: AdminLogin,
 });
 

@@ -7,7 +7,14 @@ import { formatKm, formatPrice } from "@/lib/site";
 import type { Car } from "@/services/carsService";
 
 export const Route = createFileRoute("/cars/$id/details")({
-  head: () => ({ meta: [{ title: "Vehicle Details | Shamran Motors" }] }),
+  head: () => ({ meta: [
+    { title: "Vehicle Details | Shamran Motors" },
+    { name: "description", content: "View vehicle photographs, specifications, price and availability at Shamran Motors." },
+    { property: "og:title", content: "Vehicle Details | Shamran Motors" },
+    { property: "og:description", content: "View vehicle photographs, specifications, price and availability at Shamran Motors." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: CarDetails,
 });
 

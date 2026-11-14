@@ -7,6 +7,8 @@ import { validateContact, type ContactForm } from "@/lib/contact";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Contact | Shamran Motors" },
       { name: "description", content: "Contact Shamran Motors in Bugolobi, Kampala by WhatsApp, email, Instagram or TikTok." },
       { property: "og:title", content: "Contact | Shamran Motors" },

@@ -15,6 +15,14 @@ import {
 } from "@/services/carsService";
 
 export const Route = createFileRoute("/admin/hire")({
+  head: () => ({ meta: [
+    { title: "Manage Hire Listings | Shamran Motors" },
+    { name: "description", content: "Manage demonstration car hire listings for Shamran Motors." },
+    { property: "og:title", content: "Manage Hire Listings | Shamran Motors" },
+    { property: "og:description", content: "Manage demonstration car hire listings for Shamran Motors." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: AdminHire,
 });
 

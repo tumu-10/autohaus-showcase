@@ -4,6 +4,8 @@ import { PageHero } from "@/components/site/Chrome";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Terms of Service | Shamran Motors" },
       { name: "description", content: "Terms for using the Shamran Motors website." },
       { property: "og:title", content: "Terms of Service | Shamran Motors" },

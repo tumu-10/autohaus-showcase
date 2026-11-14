@@ -8,7 +8,14 @@ export const Route = createFileRoute("/cars/compare")({
   validateSearch: (search: Record<string, unknown>): { ids: string } => ({
     ids: typeof search["ids"] === "string" ? search["ids"] : "",
   }),
-  head: () => ({ meta: [{ title: "Compare Cars | Shamran Motors" }] }),
+  head: () => ({ meta: [
+    { title: "Compare Cars | Shamran Motors" },
+    { name: "description", content: "Compare two Shamran Motors vehicles side by side, including prices and specifications." },
+    { property: "og:title", content: "Compare Cars | Shamran Motors" },
+    { property: "og:description", content: "Compare two Shamran Motors vehicles side by side, including prices and specifications." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: CompareCars,
 });
 

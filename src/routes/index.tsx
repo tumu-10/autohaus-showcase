@@ -10,6 +10,8 @@ import { useCars } from "@/hooks/useCars";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Shamran Motors | Drive Your Next Chapter" },
       { name: "description", content: "Discover exceptional vehicles and flexible car hire with Shamran Motors, Bugolobi, Kampala." },
       { property: "og:title", content: "Shamran Motors | Drive Your Next Chapter" },

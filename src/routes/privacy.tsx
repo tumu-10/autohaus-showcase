@@ -5,6 +5,8 @@ import { SITE } from "@/lib/site";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Privacy Policy | Shamran Motors" },
       { name: "description", content: "How Shamran Motors handles enquiry information." },
       { property: "og:title", content: "Privacy Policy | Shamran Motors" },

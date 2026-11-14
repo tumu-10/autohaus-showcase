@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useRouterState } from "@tanstack/react-router";
 import { SITE, whatsappLink } from "@/lib/site";
 import { useCompare } from "@/hooks/compare-context";
+export { Preloader } from "./Preloader";
 
 const NAV = [
   { to: "/cars", label: "Our Cars" },
@@ -131,38 +132,6 @@ export function WhatsAppFab() {
         <MessageCircle />
       </span>
     </a>
-  );
-}
-
-export function Preloader() {
-  const [show, setShow] = useState(true);
-  useEffect(() => {
-    const t = setTimeout(() => setShow(false), 1400);
-    return () => clearTimeout(t);
-  }, []);
-  return (
-    <AnimatePresence>
-      {show && (
-        <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-ink text-ink-foreground"
-          exit={{ y: "-100%" }}
-          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-        >
-          <div className="w-64 max-w-[calc(100vw-2.5rem)]">
-            <div className="overflow-hidden">
-              <motion.div initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
-                <img
-                  src="/logo-transparent.png"
-                  alt="Shamran Motors"
-                  className="h-auto w-full object-contain"
-                />
-              </motion.div>
-            </div>
-            <motion.div className="mt-4 h-0.5 origin-left bg-brand" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.1, ease: "easeInOut" }} />
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
   );
 }
 

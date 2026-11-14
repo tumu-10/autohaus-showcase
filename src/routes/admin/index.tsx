@@ -5,6 +5,14 @@ import { useCars, useHireListings } from "@/hooks/useCars";
 import { formatPrice } from "@/lib/site";
 
 export const Route = createFileRoute("/admin/")({
+  head: () => ({ meta: [
+    { title: "Admin Dashboard | Shamran Motors" },
+    { name: "description", content: "View the Shamran Motors demonstration vehicle inventory dashboard." },
+    { property: "og:title", content: "Admin Dashboard | Shamran Motors" },
+    { property: "og:description", content: "View the Shamran Motors demonstration vehicle inventory dashboard." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: AdminDashboard,
 });
 

@@ -5,6 +5,8 @@ import { IMAGES, whatsappLink } from "@/lib/site";
 export const Route = createFileRoute("/car-hire")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Car Hire | Shamran Motors" },
       { name: "description", content: "Car hire in Kampala with Shamran Motors. Enquire on WhatsApp for availability and terms." },
       { property: "og:title", content: "Car Hire | Shamran Motors" },

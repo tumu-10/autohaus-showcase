@@ -32,3 +32,4 @@ use the editor.
 ## Project rules
 
 - Timed UI behaviour (e.g. the hero photo rotation) lives in a small module under `src/lib` with a vitest test, not inline in a route component, so the timing can be verified without a browser.
+- Keep the opening preloader isolated from shared site chrome and use its timing module for dismissal and tyre travel so animation and lifecycle stay synchronized.

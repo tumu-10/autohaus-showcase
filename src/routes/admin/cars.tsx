@@ -10,6 +10,14 @@ import { formatPrice } from "@/lib/site";
 import { AVAILABILITIES, deleteCar, updateCar, createCar, type Car } from "@/services/carsService";
 
 export const Route = createFileRoute("/admin/cars")({
+  head: () => ({ meta: [
+    { title: "Manage Cars | Shamran Motors" },
+    { name: "description", content: "Manage demonstration vehicle listings for Shamran Motors." },
+    { property: "og:title", content: "Manage Cars | Shamran Motors" },
+    { property: "og:description", content: "Manage demonstration vehicle listings for Shamran Motors." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: AdminCars,
 });
 
