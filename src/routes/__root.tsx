@@ -121,7 +121,7 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
-  const openingVisible = usePreloader();
+  const { visible: openingVisible, signalReady } = usePreloader();
   const { queryClient } = Route.useRouteContext();
   const isAdmin = useRouterState({ select: (state) => state.location.pathname.startsWith("/admin") });
 
@@ -129,7 +129,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <CompareProvider>
         <PreloaderContext.Provider value={openingVisible}>
-        <Preloader />
+        <Preloader onReady={signalReady} />
         {!isAdmin && <Header />}
         {isAdmin ? <div><Outlet /></div> : <main><Outlet /></main>}
         {!isAdmin && <Footer />}

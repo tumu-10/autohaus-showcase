@@ -1,4 +1,7 @@
 # Requested work
+- [ ] Build the choreographed performance-tyre, smoke and original-logo preloader.
+- [ ] Add the technology-inspired scan, distortion and kinetic assembly to the hero title only.
+- [ ] Verify opening timing, reduced motion, mobile rendering and clean transitions.
 - [x] Replace the flat loading tyre with a realistic 3D sporty wheel and reveal the hero title without changing the layout.
 - [x] Animate the existing logo and add a professional rolling-tyre preloader; verify dismissal and reduced-motion behaviour.
 - [ ] Preserve the design and improve the layered mobile/tablet hero.

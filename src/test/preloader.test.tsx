@@ -1,21 +1,37 @@
 import { act, cleanup, renderHook } from "@testing-library/react";
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
-import { PRELOADER_DURATION_MS, usePreloader, wheelProgress, heroLetterDelay } from "@/lib/preloader";
+import { PRELOADER_DURATION_MS, usePreloader, wheelChoreography, wheelProgress, heroLetterDelay } from "@/lib/preloader";
 
 beforeEach(() => vi.useFakeTimers());
 afterEach(() => { cleanup(); vi.useRealTimers(); });
 
 it("keeps wheel travel within the loading sequence", () => {
   expect(wheelProgress(-100)).toBe(0);
-  expect(wheelProgress(1100)).toBe(0.5);
-  expect(wheelProgress(2200)).toBe(1);
+  expect(wheelProgress(PRELOADER_DURATION_MS / 2)).toBe(0.5);
+  expect(wheelProgress(PRELOADER_DURATION_MS)).toBe(1);
   expect(wheelProgress(5000)).toBe(1);
+});
+
+it("spins before launch, emits smoke through the drift, and exits cleanly", () => {
+  const start = wheelChoreography(0);
+  const burnout = wheelChoreography(0.12);
+  const drift = wheelChoreography(0.55);
+  const finish = wheelChoreography(1);
+  expect(start.travel).toBe(0);
+  expect(start.spin).toBe(0);
+  expect(burnout.spin).toBeGreaterThan(5);
+  expect(burnout.travel).toBe(0);
+  expect(drift.smoke).toBeGreaterThan(0.9);
+  expect(drift.drift).toBeGreaterThan(0.5);
+  expect(finish.travel).toBeGreaterThan(1);
+  expect(finish.smoke).toBe(0);
+  expect(finish.drift).toBe(0);
 });
 
 it("staggers the second title line after the first", () => {
   expect(heroLetterDelay(0, 0)).toBe(0);
-  expect(heroLetterDelay(0, 4)).toBe(0.1);
-  expect(heroLetterDelay(1, 0)).toBe(0.16);
+  expect(heroLetterDelay(0, 4)).toBeCloseTo(0.084);
+  expect(heroLetterDelay(1, 0)).toBeCloseTo(0.17);
 });
 
 it("finishes the opening sequence and does not restart on rerender", () => {
