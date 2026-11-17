@@ -12,20 +12,12 @@ it("keeps wheel travel within the loading sequence", () => {
   expect(wheelProgress(5000)).toBe(1);
 });
 
-it("spins before launch, emits smoke through the drift, and exits cleanly", () => {
-  const start = wheelChoreography(0);
-  const burnout = wheelChoreography(0.12);
-  const drift = wheelChoreography(0.55);
-  const finish = wheelChoreography(1);
-  expect(start.travel).toBe(0);
-  expect(start.spin).toBe(0);
-  expect(burnout.spin).toBeGreaterThan(5);
-  expect(burnout.travel).toBe(0);
-  expect(drift.smoke).toBeGreaterThan(0.9);
-  expect(drift.drift).toBeGreaterThan(0.5);
-  expect(finish.travel).toBeGreaterThan(1);
-  expect(finish.smoke).toBe(0);
-  expect(finish.drift).toBe(0);
+it("rolls the tyre as the progress indicator without smoke or drift", () => {
+  expect(wheelChoreography(0).travel).toBe(0);
+  expect(wheelChoreography(0.5).travel).toBeCloseTo(0.5);
+  expect(wheelChoreography(1).travel).toBe(1);
+  expect(wheelChoreography(0.5).smoke).toBe(0);
+  expect(wheelChoreography(0.5).drift).toBe(0);
 });
 
 it("staggers the second title line after the first", () => {

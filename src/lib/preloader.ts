@@ -17,23 +17,11 @@ export function wheelProgress(elapsedMs: number) {
   return clamp01(elapsedMs / PRELOADER_DURATION_MS);
 }
 
-/** Shared mechanical timeline: burnout, dragged launch, drift, then a fast exit. */
+/** Calm, precise roll: the tyre's position is the loading progress. */
 export function wheelChoreography(value: number) {
   const progress = clamp01(value);
-  const launch = smoothstep(0.01, 0.2, progress);
-  const drive = smoothstep(0.16, 0.84, progress);
-  const exit = smoothstep(0.82, 1, progress);
-  const settled = smoothstep(0.58, 0.94, progress);
-
-  return {
-    travel: drive + exit * 0.24,
-    spin: launch * 15 + drive * 38 + exit * 14,
-    drift: Math.sin(smoothstep(0.2, 0.82, progress) * Math.PI) * (1 - exit),
-    bounce: Math.sin(progress * 92) * 0.018 * smoothstep(0.12, 0.24, progress) * (1 - settled),
-    slip: 1 - settled,
-    smoke: smoothstep(0.025, 0.14, progress) * (1 - smoothstep(0.8, 1, progress)),
-    speed: smoothstep(0.14, 0.42, progress),
-  };
+  const travel = smoothstep(0, 1, progress);
+  return { travel, spin: travel * 14, drift: 0, bounce: 0, slip: 0, smoke: 0, speed: travel };
 }
 
 export function heroLetterDelay(line: number, letter: number) {
