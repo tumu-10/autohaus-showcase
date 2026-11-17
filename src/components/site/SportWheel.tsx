@@ -9,13 +9,12 @@ const seeded = (index: number) => {
 };
 
 /** Three loads only in the browser; every rendering resource leaves with the opening screen. */
-export function SportWheel({ reducedMotion, startedAt, onReady }: { reducedMotion: boolean; startedAt: number; onReady: () => void }) {
+export function SportWheel({ reducedMotion, onReady }: { reducedMotion: boolean; onReady: () => void }) {
   const host = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let cancelled = false;
     let dispose = () => {};
-    const openingStartedAt = startedAt || performance.now();
     let animationStartedAt = 0;
     let announcedReady = false;
 
@@ -423,7 +422,7 @@ export function SportWheel({ reducedMotion, startedAt, onReady }: { reducedMotio
       cancelled = true;
       dispose();
     };
-  }, [reducedMotion, startedAt, onReady]);
+  }, [reducedMotion, onReady]);
 
   return <div ref={host} className="absolute inset-0" aria-hidden="true" />;
 }

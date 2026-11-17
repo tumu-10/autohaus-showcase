@@ -1,13 +1,17 @@
-import { useRef } from "react";
+import { useCallback, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { PRELOADER_DURATION_MS, PRELOADER_EXIT_SECONDS, useOpeningVisible } from "@/lib/preloader";
 import { SportWheel } from "./SportWheel";
 
-export function Preloader() {
+export function Preloader({ onReady }: { onReady: () => void }) {
   const visible = useOpeningVisible();
   const reducedMotion = useReducedMotion();
-  const startedAt = useRef(0);
+  const [wheelReady, setWheelReady] = useState(false);
   const duration = PRELOADER_DURATION_MS / 1000;
+  const handleReady = useCallback(() => {
+    setWheelReady(true);
+    onReady();
+  }, [onReady]);
 
   return (
     <AnimatePresence>
@@ -53,7 +57,7 @@ export function Preloader() {
                 height={392}
                 className="absolute inset-0 z-30 h-auto w-full object-contain motion-reduce:hidden"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: [0, 0.65, 0], scale: [1, 1.012, 1] }}
+                animate={wheelReady ? { opacity: [0, 0.65, 0], scale: [1, 1.012, 1] } : { opacity: 0 }}
                 transition={{ duration: reducedMotion ? 0 : 0.38, delay: reducedMotion ? 0 : duration * 0.74, ease: "easeOut" }}
               />
             </div>
@@ -64,15 +68,15 @@ export function Preloader() {
               <motion.div
                 className="absolute inset-x-0 bottom-[23px] z-20 h-px origin-left bg-brand"
                 initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: reducedMotion ? 0 : duration, ease: "linear" }}
+                animate={{ scaleX: wheelReady ? 1 : 0.08 }}
+                transition={{ duration: reducedMotion ? 0 : wheelReady ? duration : 0.4, ease: wheelReady ? "linear" : "easeOut" }}
               />
-              <SportWheel reducedMotion={Boolean(reducedMotion)} startedAt={startedAt.current} />
+              <SportWheel reducedMotion={Boolean(reducedMotion)} onReady={handleReady} />
               <motion.div
                 aria-hidden="true"
                 className="absolute inset-x-0 bottom-[22px] z-30 h-[3px] origin-left bg-brand/30 blur-sm motion-reduce:hidden"
                 initial={{ scaleX: 0, opacity: 0 }}
-                animate={{ scaleX: [0, 0.7, 1], opacity: [0, 0.8, 0] }}
+                animate={wheelReady ? { scaleX: [0, 0.7, 1], opacity: [0, 0.8, 0] } : { scaleX: 0, opacity: 0 }}
                 transition={{ duration: reducedMotion ? 0 : 0.65, delay: reducedMotion ? 0 : duration * 0.72, ease: "easeOut" }}
               />
             </div>
